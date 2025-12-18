@@ -18,10 +18,27 @@ class Database:
             cur.execute(f"SELECT * FROM {table_name}")
             return cur.fetchall()
     
+    def get_by_id(self, table_name: str, row_id: int):
+        with self.cursor() as cur:
+            cur.execute(f"SELECT * FROM {table_name} WHERE id = %s", (row_id,))
+            return cur.fetchone()
+    
+    def update_client(self, client_id: int, first_name: str, last_name: str, middle_name: str, passport_series: int, passport_number: int, phone_number: str | None, preferences: str | None):
+        with self.cursor() as cur:
+            query = "UPDATE guests SET first_name = %s, last_name = %s, middle_name = %s, passport_series = %s, passport_number = %s, phone = %s, preferences = %s WHERE id = %s"
+            cur.execute(query, (first_name, last_name, middle_name, passport_series, passport_number, phone_number, preferences, client_id))
+            self.commit()
+    
     def delete(self, table_name, row_id: int):
          with self.cursor() as cur:
             query = f"DELETE FROM {table_name} WHERE id = %s"
             cur.execute(query, (row_id,))
+            self.commit()
+    
+    def insert_client(self, last_name: str, first_name: str, middle_name: str | None, passport_series: int, passport_number: int, phone_number: str | None, preferences: str | None):
+        with self.cursor() as cur:
+            query = "INSERT INTO guests(last_name, first_name, middle_name, passport_series, passport_number, phone, preferences) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cur.execute(query, (last_name, first_name, middle_name, passport_series, passport_number, phone_number, preferences))
             self.commit()
 
     

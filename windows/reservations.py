@@ -39,7 +39,7 @@ class ReservationsWindow(Ui_Form, QWidget):
     def open_edit_dialog(self):
         self.edit_dialog = EditDialog(self)
         self.edit_dialog.accepted.connect(self.update_booking)
-        if self.tableWidget.currentRow() != 1:
+        if self.tableWidget.currentRow() != -1:
             self.edit_dialog.exec()
         else:
              QMessageBox.warning(self, "Не выбрана запись", "Для редактирования выберите интересующую вас запись")

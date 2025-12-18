@@ -37,7 +37,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="clients_layout"/>
+      <layout class="QVBoxLayout" name="verticalLayout_3"/>
      </item>
      <item>
       <spacer name="verticalSpacer">
